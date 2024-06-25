@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabric.js Example</title>
+    <script src="lib/js/fabric.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+    <script>
+        // Initialize Fabric.js canvas
+        const canvas = new fabric.Canvas('canvas');
+
+        // Create a rectangle
+        const rect = new fabric.Rect({
+            left: 100,
+            top: 100,
+            fill: 'red',
+            width: 60,
+            height: 70,
+            angle: 45
+        });
+
+        // Create a circle
+        const circle = new fabric.Circle({
+            radius: 50,
+            fill: 'green',
+            left: 200,
+            top: 200
+        });
+
+        // Create a triangle
+        const triangle = new fabric.Triangle({
+            width: 60,
+            height: 70,
+            fill: 'blue',
+            left: 300,
+            top: 100
+        });
+
+        // Add shapes to canvas
+        canvas.add(rect);
+        canvas.add(circle);
+        canvas.add(triangle);
+
+        fabric.Image.fromURL('images/glasses.png', function (img) {
+            var oImg = img.set({ left: 0, top: 0 }).scale(0.25);
+            canvas.add(oImg);
+        });
+
+        // Make the shapes selectable and interactive
+        rect.set({ selectable: true });
+        circle.set({ selectable: true });
+        triangle.set({ selectable: true });
+
+        // Listen for object modified event
+        canvas.on('object:modified', function (event) {
+            const obj = event.target;
+            console.log('Object modified:', obj);
+        });
+
+        // Listen for object selected event
+        canvas.on('selection:created', function (event) {
+            const obj = event.target;
+            console.log('Object selected:', obj);
+        });
+    </script>
+</body>
+
+</html>
